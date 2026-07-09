@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Form Test</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; }
+  input, button { display: block; width: 100%; padding: 8px; margin-bottom: 10px; }
+  #result { white-space: pre-wrap; background: #f4f4f4; padding: 10px; margin-top: 20px; }
+</style>
+</head>
+<body>
+  <h2>Form Submission Test</h2>
+  <input id="name" placeholder="Name" />
+  <input id="email" placeholder="Email" />
+  <button id="submitBtn">Submit</button>
+  <button id="loadBtn">Load Saved Data</button>
+  <div id="result"></div>
+
+  <script>
+    const API_URL = 'http://localhost:3000/api/form';
+
+    document.getElementById('submitBtn').addEventListener('click', async () => {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email }),
+      });
+      const data = await res.json();
+      document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    });
+
+    document.getElementById('loadBtn').addEventListener('click', async () => {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>

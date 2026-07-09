@@ -1,0 +1,7 @@
+TZ=Asia/Jakarta
+
+0 8 * * * /home/cron/scripts/collect_data.sh
+0 12 * * * /home/cron/scripts/collect_data.sh
+0 15 * * * /home/cron/scripts/collect_data.sh
+
+30 0 * * * /home/cron/scripts/cleanup_data.sh
